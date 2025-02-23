@@ -87,6 +87,7 @@
             align-items: center;
             margin: 0 auto;
             max-width: 600px;
+            padding-bottom: 15px;
         }
         .query-box {
             flex: 1;
@@ -107,12 +108,12 @@
     </style>
 </head>
 <body>
+    <h1>Privacy-Focused Search Engines</h1>
     <div class="query-container">
         <input type="text" class="query-box" placeholder="Enter your query here" />
-        <button class="search-button">Search</button>
+        <button id='search-button' onclick='handleSearch()' class="search-button">Search</button>
     </div>
     <div class="container">
-        <h1>Privacy-Focused Search Engines</h1>
         
         <div class="search-engine">
             <h2><a href="https://search.brave.com">Brave Search</a> <input type="checkbox" checked></h2>
@@ -148,17 +149,6 @@
         </div>
 
         <div class="search-engine">
-            <h2><a href="https://searx.me">Searx</a> <input type="checkbox" checked></h2>
-            <div class="features">
-                <p>Open-source metasearch engine aggregator with self-hosting options.</p>
-                <ul>
-                    <li>💰 Pricing: Free</li>
-                    <li>🌟 Unique: Self-hostable, aggregates multiple sources</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="search-engine">
             <h2><a href="https://www.ecosia.org">Ecosia</a> <input type="checkbox" checked></h2>
             <div class="features">
                 <p>Environmentally-focused search that plants trees from ad revenue.</p>
@@ -180,5 +170,10 @@
             </div>
         </div>
     </div>
+    <script>
+        function handleSearch() {
+            // Add your search logic here
+        }
+    </script>
 </body>
 </html>
