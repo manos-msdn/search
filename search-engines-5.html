@@ -116,7 +116,7 @@
     <div class="container">
         
         <div class="search-engine">
-            <h2><a href="https://search.brave.com">Brave Search</a> <input type="checkbox" checked></h2>
+            <h2><a href="https://search.brave.com">Brave Search</a> <input type="checkbox" checked data-url="https://search.brave.com/search?q="></h2>
             <div class="features">
                 <p>Privacy-first search engine with independent index and no tracking.</p>
                 <ul>
@@ -127,7 +127,7 @@
         </div>
 
         <div class="search-engine">
-            <h2><a href="https://duckduckgo.com">DuckDuckGo</a> <input type="checkbox" checked></h2>
+            <h2><a href="https://duckduckgo.com">DuckDuckGo</a> <input type="checkbox" checked data-url="https://duckduckgo.com/?q="></h2>
             <div class="features">
                 <p>Popular privacy-focused search engine with no tracking or personalization.</p>
                 <ul>
@@ -138,7 +138,7 @@
         </div>
 
         <div class="search-engine">
-            <h2><a href="https://www.startpage.com">Startpage</a> <input type="checkbox" checked></h2>
+            <h2><a href="https://www.startpage.com">Startpage</a> <input type="checkbox" checked data-url="https://www.startpage.com/do/search?q="></h2>
             <div class="features">
                 <p>Google results with privacy protection through proxy.</p>
                 <ul>
@@ -149,7 +149,7 @@
         </div>
 
         <div class="search-engine">
-            <h2><a href="https://www.ecosia.org">Ecosia</a> <input type="checkbox" checked></h2>
+            <h2><a href="https://www.ecosia.org">Ecosia</a> <input type="checkbox" checked data-url="https://www.ecosia.org/search?q="></h2>
             <div class="features">
                 <p>Environmentally-focused search that plants trees from ad revenue.</p>
                 <ul>
@@ -160,7 +160,7 @@
         </div>
 
         <div class="search-engine">
-            <h2><a href="https://www.mojeek.com">Mojeek</a> <input type="checkbox" checked></h2>
+            <h2><a href="https://www.mojeek.com">Mojeek</a> <input type="checkbox" checked data-url="https://www.mojeek.com/search?q="></h2>
             <div class="features">
                 <p>Independent index search engine with strong privacy focus.</p>
                 <ul>
@@ -172,7 +172,31 @@
     </div>
     <script>
         function handleSearch() {
-            // Add your search logic here
+            try {
+                const queryInput = document.querySelector('.query-box');
+                console.log('Query input:', queryInput);
+                const query = queryInput.value;
+                console.log('Query:', query);
+                if (!query) {
+                    console.warn('No query entered');
+                    return;
+                }
+
+                const searchEngines = document.querySelectorAll('.search-engine input:checked');
+                console.log('Found search engines:', searchEngines.length);
+                if (searchEngines.length === 0) {
+                    console.warn('No search engines selected');
+                    return;
+                }
+
+                searchEngines.forEach(engine => {
+                    const url = engine.getAttribute('data-url') + encodeURIComponent(query);
+                    console.log('Opening:', url);
+                    window.open(url, '_blank');
+                });
+            } catch (error) {
+                console.error('Search error:', error);
+            }
         }
     </script>
 </body>
