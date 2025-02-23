@@ -172,31 +172,29 @@
     </div>
     <script>
         function handleSearch() {
-            try {
-                const queryInput = document.querySelector('.query-box');
-                console.log('Query input:', queryInput);
-                const query = queryInput.value;
-                console.log('Query:', query);
-                if (!query) {
-                    console.warn('No query entered');
-                    return;
-                }
-
-                const searchEngines = document.querySelectorAll('.search-engine input:checked');
-                console.log('Found search engines:', searchEngines.length);
-                if (searchEngines.length === 0) {
-                    console.warn('No search engines selected');
-                    return;
-                }
-
-                searchEngines.forEach(engine => {
-                    const url = engine.getAttribute('data-url') + encodeURIComponent(query);
-                    console.log('Opening:', url);
-                    window.open(url, '_blank');
-                });
-            } catch (error) {
-                console.error('Search error:', error);
+          try {
+            const queryInput = document.querySelector('.query-box');
+            const query = queryInput.value;
+            if (!query) {
+              console.warn('No query entered');
+              return;
             }
+
+            const searchEngines = document.querySelectorAll('.search-engine input:checked');
+            console.log('Found selected search engines:', searchEngines.length);
+            if (searchEngines.length === 0) {
+              console.warn('No search engines selected');
+              return;
+            }
+
+            searchEngines.forEach(engine => {
+              const url = engine.getAttribute('data-url') + encodeURIComponent(query);
+              console.log('Opening:', url);
+              window.open(url, '_blank'); 
+            });
+          } catch (error) {
+            console.error('Search error:', error);
+          }
         }
     </script>
 </body>
