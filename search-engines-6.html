@@ -48,6 +48,7 @@
       border-left: 4px solid #3498db;
       background-color: #f8f9fa;
       break-inside: avoid;
+      position: relative;
     }
 
     h2 {
@@ -121,7 +122,7 @@
   <h1>Privacy-Focused Search Engines</h1>
   <div class="query-container">
     <input type="text" class="query-box" placeholder="Enter your query here" />
-    <button id="search-button" onclick="handleSearch()" class="search-button">Search All</button>
+    <!-- <button id="search-button" onclick="handleSearch()" class="search-button">Search All</button> -->
   </div>
   <div class="container">
     <div class="search-engine">
@@ -132,7 +133,7 @@
       <div class="features">
         <p>Privacy-first search engine with independent index and no tracking.</p>
         <ul>
-          <li>💰 Pricing: Free</li>
+
           <li>🌟 Unique: Uses its own index, "Goggles" filter feature</li>
         </ul>
       </div>
@@ -147,7 +148,7 @@
       <div class="features">
         <p>Popular privacy-focused search engine with no tracking or personalization.</p>
         <ul>
-          <li>💰 Pricing: Free</li>
+
           <li>🌟 Unique: Most established privacy search engine</li>
         </ul>
       </div>
@@ -162,7 +163,7 @@
       <div class="features">
         <p>Google results with privacy protection through proxy.</p>
         <ul>
-          <li>💰 Pricing: Free</li>
+
           <li>🌟 Unique: Delivers Google results privately</li>
         </ul>
       </div>
@@ -177,7 +178,7 @@
       <div class="features">
         <p>Environmentally-focused search that plants trees from ad revenue.</p>
         <ul>
-          <li>💰 Pricing: Free</li>
+
           <li>🌟 Unique: Uses profits for reforestation</li>
         </ul>
       </div>
@@ -192,7 +193,7 @@
       <div class="features">
         <p>Independent index search engine with strong privacy focus.</p>
         <ul>
-          <li>💰 Pricing: Free</li>
+
           <li>🌟 Unique: Own index, no tracking</li>
         </ul>
       </div>
@@ -200,7 +201,7 @@
     </div>
   </div>
   <script>
-    // Global search button (Search All) remains unchanged.
+    // Global "Search All" button triggers a click on each engine's button if its checkbox is selected.
     function handleSearch() {
       const queryInput = document.querySelector('.query-box');
       const query = queryInput.value;
@@ -209,29 +210,25 @@
         return;
       }
       
-      const searchEngines = document.querySelectorAll('.search-engine input:checked');
-      if (searchEngines.length === 0) {
-        alert('Please select at least one search engine');
-        return;
-      }
-      
-      searchEngines.forEach((engine, index) => {
-        const form = document.createElement('form');
-        form.method = 'GET';
-        form.action = engine.getAttribute('data-url');
-        form.target = 'formTab_' + index + '_' + Date.now() + '_' + Math.random();
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'q';
-        input.value = query;
-        form.appendChild(input);
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
+      const searchEngines = document.querySelectorAll('.search-engine');
+      let foundSelected = false;
+      searchEngines.forEach(engine => {
+        const checkbox = engine.querySelector('input[type="checkbox"]');
+        if (checkbox && checkbox.checked) {
+          foundSelected = true;
+          const engineButton = engine.querySelector('.engine-search-button');
+          if (engineButton) {
+            engineButton.click();
+          }
+        }
       });
+      
+      if (!foundSelected) {
+        alert('Please select at least one search engine');
+      }
     }
     
-    // Each search engine button triggers a search on that engine.
+    // Each search engine button performs a search on its respective engine.
     function handleEngineSearch(event) {
       const engineBox = event.target.closest('.search-engine');
       const checkbox = engineBox.querySelector('input[type="checkbox"]');

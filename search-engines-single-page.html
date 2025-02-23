@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy-Focused Search Engines</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 2rem;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+        }
+
+        .search-engine {
+            padding: 1.5rem;
+            border-left: 4px solid #3498db;
+            background-color: #f8f9fa;
+            break-inside: avoid;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 0;
+            font-size: 1.25rem;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .features {
+            margin-left: 1rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        .query-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 600px;
+            padding-bottom: 15px;
+        }
+        .query-box {
+            flex: 1;
+            border: 2px solid #ccc;
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .search-button {
+            background-color: lightblue;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Privacy-Focused Search Engines</h1>
+    <div class="query-container">
+        <input type="text" class="query-box" placeholder="Enter your query here" />
+        <button id='search-button' onclick='handleSearch()' class="search-button">Search</button>
+        <div id="results-container"></div>
+    </div>
+    <div class="container">
+        
+        <div class="search-engine">
+            <h2><a href="https://search.brave.com">Brave Search</a> <input type="checkbox" checked data-url="https://search.brave.com/search?q="></h2>
+            <div class="features">
+                <p>Privacy-first search engine with independent index and no tracking.</p>
+                <ul>
+                    <li>💰 Pricing: Free</li>
+                    <li>🌟 Unique: Uses its own index, "Goggles" filter feature</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-engine">
+            <h2><a href="https://duckduckgo.com">DuckDuckGo</a> <input type="checkbox" checked data-url="https://duckduckgo.com/?q="></h2>
+            <div class="features">
+                <p>Popular privacy-focused search engine with no tracking or personalization.</p>
+                <ul>
+                    <li>💰 Pricing: Free</li>
+                    <li>🌟 Unique: Most established privacy search engine</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-engine">
+            <h2><a href="https://www.startpage.com">Startpage</a> <input type="checkbox" checked data-url="https://www.startpage.com/do/search?q="></h2>
+            <div class="features">
+                <p>Google results with privacy protection through proxy.</p>
+                <ul>
+                    <li>💰 Pricing: Free</li>
+                    <li>🌟 Unique: Delivers Google results privately</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-engine">
+            <h2><a href="https://www.ecosia.org">Ecosia</a> <input type="checkbox" checked data-url="https://www.ecosia.org/search?q="></h2>
+            <div class="features">
+                <p>Environmentally-focused search that plants trees from ad revenue.</p>
+                <ul>
+                    <li>💰 Pricing: Free</li>
+                    <li>🌟 Unique: Uses profits for reforestation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="search-engine">
+            <h2><a href="https://www.mojeek.com">Mojeek</a> <input type="checkbox" checked data-url="https://www.mojeek.com/search?q="></h2>
+            <div class="features">
+                <p>Independent index search engine with strong privacy focus.</p>
+                <ul>
+                    <li>💰 Pricing: Free</li>
+                    <li>🌟 Unique: Own index, no tracking</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        function handleSearch() {
+          const queryInput = document.querySelector('.query-box');
+          const query = queryInput.value;
+          if (!query) {
+            alert('Please enter a search query');
+            return;
+          }
+      
+          const searchEngines = document.querySelectorAll('.search-engine input:checked');
+          if (searchEngines.length === 0) {
+            alert('Please select at least one search engine');
+            return;
+          }
+      
+          // Clear previous results
+          const resultsContainer = document.getElementById('results-container');
+          resultsContainer.innerHTML = '';
+      
+          // Create an iframe for each selected search engine
+          searchEngines.forEach(engine => {
+            const url = engine.getAttribute('data-url') + encodeURIComponent(query);
+            const engineName = engine.closest('.search-engine').querySelector('h2 a').textContent;
+      
+            // Create a container for the result
+            const resultDiv = document.createElement('div');
+            resultDiv.style.marginBottom = '20px';
+      
+            // Add a heading with the search engine name
+            const heading = document.createElement('h3');
+            heading.textContent = engineName;
+            resultDiv.appendChild(heading);
+      
+            // Create the iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.width = '100%';
+            iframe.height = '600'; // adjust height as needed
+            iframe.style.border = '1px solid #ccc';
+            resultDiv.appendChild(iframe);
+      
+            resultsContainer.appendChild(resultDiv);
+          });
+        }
+      </script>
+      
+        
+      
+      
+      
+</body>
+</html>
