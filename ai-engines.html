@@ -84,11 +84,16 @@
       position: relative;
     }
 
-    .engine-search-button::after {
+    .features {
+      position: relative;
+    }
+
+    .engine-search-button::before {
       content: attr(data-url);
       position: absolute;
-      bottom: -25px;
-      left: 0;
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%);
       background-color: #333;
       color: white;
       padding: 5px;
@@ -98,9 +103,10 @@
       z-index: 10;
       white-space: nowrap;
       font-size: 12px;
+      margin-left: 10px;
     }
 
-    .engine-search-button:hover::after {
+    .engine-search-button:hover::before {
       opacity: 1;
     }
   </style>
