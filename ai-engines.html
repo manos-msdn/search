@@ -21,13 +21,15 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      max-width: 800px;
+      max-width: 1000px;
       padding: 2rem;
     }
 
     .search-column {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1rem;
       width: 100%;
-      max-width: 500px;
     }
 
     .search-engine {
@@ -114,6 +116,16 @@
     .engine-search-button:hover::before {
       opacity: 1;
     }
+
+    @media (max-width: 800px) {
+      .main-container {
+        padding: 1rem;
+      }
+
+      .search-column {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -151,6 +163,28 @@
         <div class="features" style="position: relative;">
           <button class="engine-search-button" data-url="https://venice.ai/chat">Venice Chat</button>
           <p>Uncensored, don't know much about it</p>
+        </div>
+      </div>
+
+      <!-- Additional entries to demonstrate multi-column layout -->
+      <div class="search-engine">
+        <div class="features" style="position: relative;">
+          <button class="engine-search-button" data-url="https://example1.com">Example 1</button>
+          <p>Description for Example 1</p>
+        </div>
+      </div>
+
+      <div class="search-engine">
+        <div class="features" style="position: relative;">
+          <button class="engine-search-button" data-url="https://example2.com">Example 2</button>
+          <p>Description for Example 2</p>
+        </div>
+      </div>
+
+      <div class="search-engine">
+        <div class="features" style="position: relative;">
+          <button class="engine-search-button" data-url="https://example3.com">Example 3</button>
+          <p>Description for Example 3</p>
         </div>
       </div>
     </div>
