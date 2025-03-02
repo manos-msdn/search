@@ -61,6 +61,7 @@
       margin-left: 1rem;
       color: #7f8c8d;
       font-size: 0.9rem;
+      position: relative;
     }
 
     ul {
@@ -84,16 +85,12 @@
       position: relative;
     }
 
-    .features {
-      position: relative;
-    }
-
     .engine-search-button::before {
       content: attr(data-url);
       position: absolute;
-      top: 50%;
-      left: 100%;
-      transform: translateY(-50%);
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
       background-color: #333;
       color: white;
       padding: 5px;
@@ -103,7 +100,7 @@
       z-index: 10;
       white-space: nowrap;
       font-size: 12px;
-      margin-left: 10px;
+      margin-bottom: 10px;
     }
 
     .engine-search-button:hover::before {
