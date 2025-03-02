@@ -81,6 +81,27 @@
       cursor: pointer;
       margin-top: 10px;
       display: block;
+      position: relative;
+    }
+
+    .engine-search-button::after {
+      content: attr(data-url);
+      position: absolute;
+      bottom: -25px;
+      left: 0;
+      background-color: #333;
+      color: white;
+      padding: 5px;
+      border-radius: 3px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+      white-space: nowrap;
+      font-size: 12px;
+    }
+
+    .engine-search-button:hover::after {
+      opacity: 1;
     }
   </style>
 </head>
