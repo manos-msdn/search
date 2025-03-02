@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title style="width: 100%;">AI Search Engines</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 2rem;
+      background-color: #f0f0f0;
+    }
+    
+    .main-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-left: 300px;
+    }
+    .query-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin: 0;
+      width: 300px;
+      padding-bottom: 15px;
+    }
+    .search-column {
+      width: 450px;
+    }
+    .search-engine {
+      margin-bottom: .5rem;
+      padding-top: 0.0rem;
+      padding-right: 0.5rem;
+      border-left: 4px solid #3498db;
+      background-color: #f8f9fa;
+      break-inside: avoid;
+      position: relative;
+      width: 600px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      color: #2980b9;
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .features {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-left: 1rem;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    .query-box {
+      width: 700px;
+      height: 200px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      text-align: left;
+      vertical-align: top;
+      white-space: pre-wrap;
+      white-space: normal;
+    }
+    .query-box::placeholder {
+      text-align: left;
+      vertical-align: top;
+      white-space: pre-wrap;
+    }
+    .search-button {
+      background-color: lightblue;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .engine-search-button {
+      background-color: lightgreen;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="query-container">
+      <!-- <h1 style="width: 800px!important;">Privacy-Focused Search Engines</h1> -->
+      <!-- <textarea type="text" class="query-box" placeholder="Enter your query here"></textarea> -->
+    </div>
+
+    <div class="search-column">
+      <div class="search-engine">
+        <div class="features">
+          <button class="engine-search-button" onclick="handleEngineSearch(event)">Le Chat</button>
+          <input type="checkbox" style="display: none;" checked data-url="https://chat.mistral.ai/chat" />
+          <p>French, fast and privacy focused</p>
+        </div>
+      </div>
+
+      <div class="search-engine">
+        <div class="features">
+          <button class="engine-search-button" onclick="handleEngineSearch(event)">DeepSeek Official</button>
+          <input type="checkbox" style="display: none;" checked data-url="https://chat.deepseek.com/" />
+          <p>Original DeepSeek</p>
+        </div>
+      </div>
+
+      <div class="search-engine">
+        <div class="features">
+          <button class="engine-search-button" onclick="handleEngineSearch(event)">DeepSeek Clone</button>
+          <input type="checkbox" style="display: none;" checked data-url="https://ai-chatbot.top/" />
+          <p>No web search but very fast, no login</p>
+        </div>
+      </div>
+
+      <div class="search-engine">
+        <div class="features">
+          <button class="engine-search-button" onclick="handleEngineSearch(event)">BeaGo</button>
+          <input type="checkbox" style="display: none;" checked data-url="https://www.beago.ai/" />
+          <p>Fast, sometimes hallucinates</p>
+        </div>
+      </div>
+
+      <div class="search-engine">
+        <div class="features">
+          <button class="engine-search-button" onclick="handleEngineSearch(event)">Venice Chat</button>
+          <input type="checkbox" style="display: none;" checked data-url="https://venice.ai/cha" />
+          <p>Uncensored, don't know much about it</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Each search engine button performs a search on its respective engine.
+    function handleEngineSearch(event) {
+      const engineBox = event.target.closest('.search-engine');
+      const checkbox = engineBox.querySelector('input[type="checkbox"]');
+      if (!checkbox) {
+        alert('Search engine configuration not found.');
+        return;
+      }
+
+      const queryInput = document.querySelector('.query-box');
+      const query = queryInput.value;
+      if (!query) {
+        alert('Please enter a search query');
+        return;
+      }
+      const url = checkbox.getAttribute('data-url') + encodeURIComponent(query);
+      window.open(url, 'tab_' + Date.now() + '_' + Math.random());
+    }
+  </script>
+</body>
+</html>
