@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title style="width: 100%;">AI Search Engines</title>
+  <title>AI Search Engines</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -42,28 +42,6 @@
       width: 100%;
     }
 
-    h1 {
-      color: #2c3e50;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    h2 {
-      color: #2980b9;
-      margin-top: 0;
-      font-size: 1.25rem;
-    }
-
-    a {
-      color: #3498db;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
     .features {
       display: flex;
       align-items: center;
@@ -72,15 +50,6 @@
       color: #7f8c8d;
       font-size: 0.9rem;
       position: relative;
-    }
-
-    ul {
-      padding-left: 1.2rem;
-      margin: 0.5rem 0;
-    }
-
-    li {
-      margin-bottom: 0.3rem;
     }
 
     .engine-search-button {
@@ -130,108 +99,45 @@
 </head>
 <body>
   <div class="main-container">
-    <div class="search-column">
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://chat.mistral.ai/chat">Le Chat</button>
-          <p>French, fast and privacy focused</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://chat.deepseek.com/">DeepSeek Official</button>
-          <p>Original DeepSeek</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://chatgpt.com/">ChatGPT</button>
-          <p>First popular GPT from OpenAI</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://ai-chatbot.top/">DeepSeek Clone</button>
-          <p>No web search but very fast, no login</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://www.beago.ai/">BeaGo</button>
-          <p>Fast, sometimes hallucinates</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://venice.ai/chat">Venice Chat</button>
-          <p>Uncensored, don't know much about it</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://grok.com">Grok</button>
-          <p>From X</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://groq.com/">Groq</button>
-          <p>Fast inference</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://copilot.microsoft.com/">Copilot</button>
-          <p>From Microsoft; has a Windows app too</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://gemini.google.com">Gemini</button>
-          <p>From Google</p>
-        </div>
-      </div>
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://aistudio.google.com/prompts/new_chat">Google AI Studio</button>
-          <p>From Google</p>
-        </div>
-      </div>      
-
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://claude.ai/new">Claude</button>
-          <p>From Anthropic</p>
-        </div>
-      </div>      
-
-      <div class="search-engine">
-        <div class="features" style="position: relative;">
-          <button class="engine-search-button" data-url="https://www.meta.ai/">Meta AI</button>
-          <p>From Meta</p>
-        </div>
-      </div>      
-
+    <div id="search-column" class="search-column">
+      <!-- Engines will be dynamically inserted here -->
     </div>
   </div>
+
   <script>
-    document.querySelectorAll('.engine-search-button').forEach(button => {
-      button.addEventListener('click', function() {
-        const url = this.getAttribute('data-url');
-        window.open(url, 'tab_' + Date.now() + '_' + Math.random());
-      });
-    });
+    // Fetch and render AI engines from JSON
+    async function renderEngines() {
+      try {
+        const response = await fetch('ai-engines.json');
+        const data = await response.json();
+        const searchColumn = document.getElementById('search-column');
+
+        data.engines.forEach(engine => {
+          const engineElement = document.createElement('div');
+          engineElement.className = 'search-engine';
+          engineElement.innerHTML = `
+            <div class="features" style="position: relative;">
+              <button class="engine-search-button" data-url="${engine.url}">${engine.name}</button>
+              <p>${engine.description}</p>
+            </div>
+          `;
+          searchColumn.appendChild(engineElement);
+        });
+
+        // Add click event listeners to buttons
+        document.querySelectorAll('.engine-search-button').forEach(button => {
+          button.addEventListener('click', function() {
+            const url = this.getAttribute('data-url');
+            window.open(url, 'tab_' + Date.now() + '_' + Math.random());
+          });
+        });
+      } catch (error) {
+        console.error('Error loading AI engines:', error);
+      }
+    }
+
+    // Call the render function when the page loads
+    renderEngines();
   </script>
 </body>
 </html>
