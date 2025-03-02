@@ -5,16 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Search Engines</title>
   <style>
+    :root {
+      --bg-primary: #f4f4f4;
+      --bg-secondary: white;
+      --text-primary: #333;
+      --text-secondary: #666;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --button-bg: #4CAF50;
+      --button-hover: #45a049;
+      --toggle-bg: #ddd;
+      --toggle-slider: white;
+    }
+
+    :root.dark-mode {
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --text-primary: #e0e0e0;
+      --text-secondary: #a0a0a0;
+      --shadow-color: rgba(255, 255, 255, 0.1);
+      --button-bg: #388E3C;
+      --button-hover: #2E7D32;
+      --toggle-bg: #555;
+      --toggle-slider: #333;
+    }
+
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .theme-toggle-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .theme-toggle {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .theme-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .theme-toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--toggle-bg);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .theme-toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: var(--toggle-slider);
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    .theme-toggle input:checked + .theme-toggle-slider {
+      background-color: #2196F3;
+    }
+
+    .theme-toggle input:checked + .theme-toggle-slider:before {
+      transform: translateX(26px);
     }
     
     .main-container {
@@ -33,16 +113,16 @@
     }
 
     .search-engine {
-      background-color: white;
+      background-color: var(--bg-secondary);
       border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 6px var(--shadow-color);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       overflow: hidden;
     }
 
     .search-engine:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 12px var(--shadow-color);
     }
 
     .features {
@@ -56,13 +136,13 @@
 
     .features p {
       margin: 0;
-      color: #666;
+      color: var(--text-secondary);
       font-size: 0.9rem;
       text-align: center;
     }
 
     .engine-search-button {
-      background-color: #4CAF50;
+      background-color: var(--button-bg);
       color: white;
       border: none;
       border-radius: 25px;
@@ -75,7 +155,7 @@
     }
 
     .engine-search-button:hover {
-      background-color: #45a049;
+      background-color: var(--button-hover);
     }
 
     .engine-search-button::before {
@@ -121,6 +201,13 @@
   </style>
 </head>
 <body>
+  <div class="theme-toggle-container">
+    <label class="theme-toggle">
+      <input type="checkbox" id="theme-toggle-checkbox">
+      <span class="theme-toggle-slider"></span>
+    </label>
+  </div>
+
   <div class="main-container">
     <div id="search-column" class="search-column">
       <!-- Engines will be dynamically inserted here -->
@@ -223,6 +310,30 @@
         });
       });
     }
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle-checkbox');
+    const htmlRoot = document.documentElement;
+
+    // Check for saved theme preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      htmlRoot.classList.add('dark-mode');
+      themeToggle.checked = true;
+    }
+
+    // Theme toggle event listener
+    themeToggle.addEventListener('change', function() {
+      if (this.checked) {
+        htmlRoot.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        htmlRoot.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
 
     // Call the render function when the page loads
     renderEngines();
