@@ -105,35 +105,100 @@
   </div>
 
   <script>
-    // Fetch and render AI engines from JSON
-    async function renderEngines() {
-      try {
-        const response = await fetch('ai-engines.json');
-        const data = await response.json();
-        const searchColumn = document.getElementById('search-column');
+    // Embedded JSON data to avoid CORS issues
+    const engineData = {
+      "engines": [
+        {
+          "name": "Le Chat",
+          "url": "https://chat.mistral.ai/chat",
+          "description": "French, fast and privacy focused"
+        },
+        {
+          "name": "DeepSeek Official",
+          "url": "https://chat.deepseek.com/",
+          "description": "Original DeepSeek"
+        },
+        {
+          "name": "DeepSeek Clone",
+          "url": "https://ai-chatbot.top/",
+          "description": "No web search but very fast, no login"
+        },
+        {
+          "name": "BeaGo",
+          "url": "https://www.beago.ai/",
+          "description": "Fast, sometimes hallucinates"
+        },
+        {
+          "name": "Venice Chat",
+          "url": "https://venice.ai/cha",
+          "description": "Uncensored, don't know much about it"
+        },
+        {
+          "name": "ChatGPT",
+          "url": "https://chatgpt.com/",
+          "description": "First popular GPT from OpenAI"
+        },
+        {
+          "name": "Grok",
+          "url": "https://grok.com",
+          "description": "From X"
+        },
+        {
+          "name": "Groq",
+          "url": "https://groq.com/",
+          "description": "Fast inference"
+        },
+        {
+          "name": "Copilot",
+          "url": "https://copilot.microsoft.com/",
+          "description": "From Microsoft; has a Windows app too"
+        },
+        {
+          "name": "Gemini",
+          "url": "https://gemini.google.com",
+          "description": "From Google"
+        },
+        {
+          "name": "Google AI Studio",
+          "url": "https://aistudio.google.com/prompts/new_chat",
+          "description": "From Google"
+        },
+        {
+          "name": "Claude",
+          "url": "https://claude.ai/new",
+          "description": "From Anthropic"
+        },
+        {
+          "name": "Meta AI",
+          "url": "https://www.meta.ai/",
+          "description": "From Meta"
+        }
+      ]
+    };
 
-        data.engines.forEach(engine => {
-          const engineElement = document.createElement('div');
-          engineElement.className = 'search-engine';
-          engineElement.innerHTML = `
-            <div class="features" style="position: relative;">
-              <button class="engine-search-button" data-url="${engine.url}">${engine.name}</button>
-              <p>${engine.description}</p>
-            </div>
-          `;
-          searchColumn.appendChild(engineElement);
-        });
+    // Render AI engines from embedded JSON
+    function renderEngines() {
+      const searchColumn = document.getElementById('search-column');
 
-        // Add click event listeners to buttons
-        document.querySelectorAll('.engine-search-button').forEach(button => {
-          button.addEventListener('click', function() {
-            const url = this.getAttribute('data-url');
-            window.open(url, 'tab_' + Date.now() + '_' + Math.random());
-          });
+      engineData.engines.forEach(engine => {
+        const engineElement = document.createElement('div');
+        engineElement.className = 'search-engine';
+        engineElement.innerHTML = `
+          <div class="features" style="position: relative;">
+            <button class="engine-search-button" data-url="${engine.url}">${engine.name}</button>
+            <p>${engine.description}</p>
+          </div>
+        `;
+        searchColumn.appendChild(engineElement);
+      });
+
+      // Add click event listeners to buttons
+      document.querySelectorAll('.engine-search-button').forEach(button => {
+        button.addEventListener('click', function() {
+          const url = this.getAttribute('data-url');
+          window.open(url, 'tab_' + Date.now() + '_' + Math.random());
         });
-      } catch (error) {
-        console.error('Error loading AI engines:', error);
-      }
+      });
     }
 
     // Call the render function when the page loads
