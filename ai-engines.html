@@ -8,28 +8,36 @@
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
-      margin: 2rem;
+      margin: 0;
+      padding: 0;
       background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
     
     .main-container {
       display: flex;
-      gap: 1rem;
       justify-content: center;
-      margin-left: 300px;
+      width: 100%;
+      max-width: 800px;
+      padding: 2rem;
     }
+
     .search-column {
-      width: 450px;
+      width: 100%;
+      max-width: 500px;
     }
+
     .search-engine {
-      margin-bottom: .5rem;
-      padding-top: 0.0rem;
-      padding-right: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
       border-left: 4px solid #3498db;
       background-color: #f8f9fa;
       break-inside: avoid;
       position: relative;
-      width: 600px;
+      width: 100%;
     }
 
     h1 {
@@ -112,43 +120,42 @@
   <div class="main-container">
     <div class="search-column">
       <div class="search-engine">
-        <div class="features">
+        <div class="features" style="position: relative;">
           <button class="engine-search-button" data-url="https://chat.mistral.ai/chat">Le Chat</button>
           <p>French, fast and privacy focused</p>
         </div>
       </div>
 
       <div class="search-engine">
-        <div class="features">
+        <div class="features" style="position: relative;">
           <button class="engine-search-button" data-url="https://chat.deepseek.com/">DeepSeek Official</button>
           <p>Original DeepSeek</p>
         </div>
       </div>
 
       <div class="search-engine">
-        <div class="features">
+        <div class="features" style="position: relative;">
           <button class="engine-search-button" data-url="https://ai-chatbot.top/">DeepSeek Clone</button>
           <p>No web search but very fast, no login</p>
         </div>
       </div>
 
       <div class="search-engine">
-        <div class="features">
+        <div class="features" style="position: relative;">
           <button class="engine-search-button" data-url="https://www.beago.ai/">BeaGo</button>
           <p>Fast, sometimes hallucinates</p>
         </div>
       </div>
 
       <div class="search-engine">
-        <div class="features">
-          <button class="engine-search-button" data-url="https://venice.ai/cha">Venice Chat</button>
+        <div class="features" style="position: relative;">
+          <button class="engine-search-button" data-url="https://venice.ai/chat">Venice Chat</button>
           <p>Uncensored, don't know much about it</p>
         </div>
       </div>
     </div>
   </div>
   <script>
-    // Open the URL directly when the button is clicked
     document.querySelectorAll('.engine-search-button').forEach(button => {
       button.addEventListener('click', function() {
         const url = this.getAttribute('data-url');
